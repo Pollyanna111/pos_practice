@@ -1,7 +1,26 @@
 var printInventory = function (inputs) {
-    var bought_items = Bought_items.get_the_bought_items(inputs);
 
-    var after_promotion = Bought_items.recompute_it_with_promotion(bought_items);
+    var details_to_print = get_the_details_to_print(inputs);
+
+    var text =
+        '***<没钱赚商店>购物清单***\n' +
+        '打印时间：' + details_to_print[0] + '\n' +
+        '----------------------\n' +
+        details_to_print[1] +
+        '----------------------\n' +
+        details_to_print[2] +
+        '----------------------\n' +
+        details_to_print[3]+
+        '**********************';
+    console.log(text);
+};
+
+
+var get_the_details_to_print = function(inputs){
+
+    var bought_items = Bought_item.get_the_bought_items(inputs);
+
+    var after_promotion = Bought_item.recompute_it_with_promotion(bought_items);
 
     var print_items = detail_of_items(bought_items,after_promotion);
 
@@ -11,24 +30,9 @@ var printInventory = function (inputs) {
 
     var formattedDateString = get_the_current_time();
 
-    var text =
-        '***<没钱赚商店>购物清单***\n' +
-        '打印时间：' + formattedDateString + '\n' +
-        '----------------------\n' +
-        print_items+
-        '----------------------\n' +
-        print_promotion +
-        '----------------------\n' +
-        print_the_cost+
-        '**********************';
-
-    console.log(text);
+    return [formattedDateString,print_items,print_promotion,print_the_cost];
 };
 
-
-var dateDigitToString = function (num) {
-    return num < 10 ? '0' + num : num;
-};
 
 
 var detail_of_items = function (bought_items,after_promotion) {
@@ -42,20 +46,11 @@ var detail_of_items = function (bought_items,after_promotion) {
     return text.join('');
 };
 
-var get_the_item_number_after_promotion = function(after_promotion,bought_items){
-    var promotion_item = _(after_promotion).findWhere({name:bought_items.name});
-    var count_number = promotion_item ? bought_items.number-promotion_item.number : bought_items.number;
-    return count_number;
+var get_the_item_number_after_promotion = function(after_promotion,bought_item){
+    var promotion_item = _(after_promotion).findWhere({name:bought_item.name});
+    return promotion_item ? bought_item.number-promotion_item.number : bought_item.number;
 };
 
-var detail_of_promotion = function (after_promotion) {
-    var text = new Array(after_promotion.length+1);
-    text[0] = '挥泪赠送商品：\n';
-    _(text.length-1).times(function (i) {
-        text[i+1] = '名称：'+after_promotion[i].name+'，数量：'+after_promotion[i].number+after_promotion[i].unit+'\n'
-    });
-    return text.join('');
-};
 
 var detail_of_cost = function(bought_items,after_promotion){
     var text = new Array(2);
@@ -78,5 +73,15 @@ var compute_the_cost = function (bought_items,after_promotion) {
     return [actual_cost,money_saved]
 };
 
+
+
+var detail_of_promotion = function (after_promotion) {
+    var text = new Array(after_promotion.length+1);
+    text[0] = '挥泪赠送商品：\n';
+    _(text.length-1).times(function (i) {
+        text[i+1] = '名称：'+after_promotion[i].name+'，数量：'+after_promotion[i].number+after_promotion[i].unit+'\n'
+    });
+    return text.join('');
+};
 
 

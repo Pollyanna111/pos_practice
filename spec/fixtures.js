@@ -31,3 +31,7 @@ var get_the_current_time = function(){
         text = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
     return text;
 };
+
+var dateDigitToString = function (num) {
+    return num < 10 ? '0' + num : num;
+};
