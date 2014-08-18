@@ -10,7 +10,7 @@ var printInventory = function (inputs) {
         '----------------------\n' +
         details_to_print.promotion +
         '----------------------\n' +
-        details_to_print.cost+
+        details_to_print.cost +
         '**********************';
     console.log(text);
 };
