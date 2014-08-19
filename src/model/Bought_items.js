@@ -11,16 +11,6 @@ Bought_item.get_the_bought_items = function(inputs){
     var all_item = loadAllItems();
     var bought_items = new Array(0);
     var number_of_each_goods;
-//    _(inputs.length).times(function (i) {
-//        var has_bind_sign = inputs[i].indexOf('-');
-//        if(has_bind_sign !== -1){
-//            abc.push(_(all_item).where({barcode:inputs[i].slice(0,has_bind_sign)}));
-//        }
-//        else{
-//            abc.push(_(all_item).where({barcode:inputs[i]}));
-//        }
-//    });
-//
     _(all_item.length).times(function (i) {
         number_of_each_goods = 0;
         _(inputs).each(function(input){

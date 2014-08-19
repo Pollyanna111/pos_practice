@@ -4,8 +4,6 @@ function Bought_promoted_items(bought_items,promotion_items){
 }
 
 
-
-
 Bought_promoted_items.prototype.detail_of_items = function () {
     var text = new Array(this.bought_items.length);
     var count_number;
@@ -22,8 +20,8 @@ Bought_promoted_items.prototype.detail_of_items = function () {
 Bought_promoted_items.prototype.detail_of_cost = function(){
     var text = new Array(2);
     var cost = this.compute_the_cost();
-    text[0] = '总计：'+cost[0].toFixed(2)+'(元)\n';
-    text[1] = '节省：'+cost[1].toFixed(2)+'(元)\n';
+    text[0] = '总计：'+cost.actual_cost.toFixed(2)+'(元)\n';
+    text[1] = '节省：'+cost.money_saved.toFixed(2)+'(元)\n';
     return text.join('');
 };
 
@@ -38,5 +36,5 @@ Bought_promoted_items.prototype.compute_the_cost = function () {
         total = total + this.bought_items[i].price * this.bought_items[i].number;
     },this);
     var money_saved = total - actual_cost;
-    return [actual_cost,money_saved]
+    return {actual_cost:actual_cost,money_saved:money_saved}
 };
