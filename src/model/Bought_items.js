@@ -8,9 +8,7 @@ function Bought_item(barcode,name,unit,price,number){
 
 
 Bought_item.get_the_bought_items = function(inputs){
-    var all_item = loadAllItems();
-    var bought_items = new Array(0);
-    var number_of_each_goods;
+    var all_item = loadAllItems(),bought_items =[], number_of_each_goods;
     _(all_item.length).times(function (i) {
         number_of_each_goods = 0;
         _(inputs).each(function(input){
@@ -32,16 +30,14 @@ Bought_item.get_the_bought_items = function(inputs){
 
 
 Bought_item.recompute_it_with_promotion = function (bought_items) {
-    var after_promotion = [];
-    var each_item;
-    var promotion = loadPromotions();
+    var promotion_items = [], each_item, promotion = loadPromotions();
     _(bought_items.length).times(function (i) {
         _(promotion[0].barcodes.length).times(function(j){
             if (bought_items[i].barcode === promotion[0].barcodes[j]) {
                 each_item={name:bought_items[i].name,number:Math.floor(bought_items[i].number / 3),unit:bought_items[i].unit};
-                after_promotion.push(each_item);
+                promotion_items.push(each_item);
             }
         });
     });
-    return after_promotion;
+    return promotion_items;
 };

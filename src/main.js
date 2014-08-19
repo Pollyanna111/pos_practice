@@ -45,12 +45,11 @@ var get_the_item_number_after_promotion = function(promotion_item,bought_item){
 
 
 var detail_of_promotion = function (promotion_item) {
-    var text = new Array(promotion_item.length+1);
-    text[0] = '挥泪赠送商品：\n';
-    _(text.length-1).times(function (i) {
-        text[i+1] = '名称：'+promotion_item[i].name+'，数量：'+promotion_item[i].number+promotion_item[i].unit+'\n';
+    var text = '挥泪赠送商品：\n';
+    _(promotion_item.length).times(function (i) {
+        text += '名称：'+promotion_item[i].name+'，数量：'+promotion_item[i].number+promotion_item[i].unit+'\n';
     });
-    return text.join('');
+    return text;
 };
 
 
